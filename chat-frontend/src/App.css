@@ -19,3 +19,42 @@
 .home-message-icon {
   margin-left: 10px;
 }
+
+/* Login */
+.login_bg {
+  background-image: url(https://images.unsplash.com/photo-1497864149936-d3163f0c0f4b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=869&q=80);
+  height: 90vh;
+  background-size: cover;
+  background-position: left;
+  background-repeat: no-repeat;
+  overflow-x: hidden;
+}
+
+/* Sign up */
+.signup_bg {
+  background-image: url(https://images.unsplash.com/photo-1497005367839-6e852de72767?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=867&q=80);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.signup-profile-pic-container {
+  width: 110px;
+  height: 110px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.signup-avatar {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+}
+
+.add-picture-icon{
+  position: absolute;
+  bottom: 0;
+  right: 5px;
+  color: green;
+  cursor: pointer;
+  z-index: 99;
+}
