@@ -27,10 +27,13 @@ export default function SignUp() {
 
   const uploadImage = async () => {
     const data = new FormData();
+    //.append('key','value') to form data
     data.append('file', image);
     data.append('upload_preset', 'my-uploads');
+    console.log(data);
     try {
       setUploadingImage(true);
+      //sending post request to upload img to cloudinary
       let res = await fetch(
         'https://api.cloudinary.com/v1_1/ddln8havk/image/upload',
         {
@@ -39,8 +42,6 @@ export default function SignUp() {
         }
       );
       const urlData = await res.json();
-      console.log(urlData);
-
       setUploadingImage(false);
       return urlData.url;
     } catch (error) {
@@ -118,7 +119,7 @@ export default function SignUp() {
           </Form.Group>
 
           <Button variant="primary" type="submit">
-            Create account
+            {uploadingImage ? 'Loading...' : 'Sign Up'}
           </Button>
         </Form>
       </Col>

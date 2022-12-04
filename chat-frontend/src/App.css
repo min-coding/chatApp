@@ -50,11 +50,19 @@
   border-radius: 50%;
 }
 
-.add-picture-icon{
+.add-picture-icon {
   position: absolute;
   bottom: 0;
   right: 5px;
   color: green;
   cursor: pointer;
   z-index: 99;
+}
+
+/* Chat */
+.message-output {
+  height: 80vh;
+  border: 1px solid lightgray;
+  overflow-y: scroll;
+  margin-bottom: 10px;
 }
