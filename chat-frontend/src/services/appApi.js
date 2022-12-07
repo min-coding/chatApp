@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 //define a service using a base URL
 
-// make query to database without using fetch or axios, we use this instead
+// make query to database without using fetch or axios, we use this instead, it's a hook-like function
 const appApi = createApi({
   reducerPath: 'appApi',
   baseQuery: fetchBaseQuery({
