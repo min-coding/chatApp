@@ -16,6 +16,7 @@ const reducer = combineReducers({
   [appApi.reducerPath]:appApi.reducer
 })
 
+// choosing appApi.reducerPath state to save to storage
 const persistConfig = {
   key: 'root',
   storage,

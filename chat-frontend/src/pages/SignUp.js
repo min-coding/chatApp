@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 import { Row, Col, Form, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import avatar from '../assets/avatar-default.png';
+import { useSignUpMutation } from '../services/appApi';
 
 export default function SignUp() {
   // img upload state
   const [image, setImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [uploadingImage, setUploadingImage] = useState(false);
+
+  //hooks
+  const [signupUser, { isLoading, error }] = useSignUpMutation();
+  const navigate = useNavigate();
 
   // profile info state
   const [name, setName] = useState('');
@@ -55,6 +60,12 @@ export default function SignUp() {
     if (!image) return alert('Please upload your profile picture');
     const url = await uploadImage(image);
     console.log(url);
+    signupUser({ name, email, password, picture: url }).then((data) => {
+      if (data) {
+        console.log(data);
+        navigate('/chat');
+      }
+    });
   };
 
   return (
