@@ -1,9 +1,19 @@
 import React from 'react';
-import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { Button, Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import logo from '../assets/logo.png';
+import { useSelector } from 'react-redux';
+import { useLogoutMutation } from '../services/appApi';
 
 export default function Navigation() {
+  const user = useSelector((state) => state.user);
+  const [logoutUser] = useLogoutMutation();
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    await logoutUser(user);
+    window.location.replace('/');
+  };
+
   return (
     <Navbar bg="light" expand="lg">
       <Container>
@@ -14,30 +24,53 @@ export default function Navigation() {
         </LinkContainer>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <LinkContainer to="/">
-              <Nav.Link>Home</Nav.Link>
-            </LinkContainer>
-            <LinkContainer to="/login">
-              <Nav.Link>Log In</Nav.Link>
-            </LinkContainer>
+          <Nav className="ms-auto">
+            {!user && (
+              <>
+                <LinkContainer to="/">
+                  <Nav.Link>Home</Nav.Link>
+                </LinkContainer>
+                <LinkContainer to="/login">
+                  <Nav.Link>Log In</Nav.Link>
+                </LinkContainer>
+              </>
+            )}
+
             <LinkContainer to="/chat">
               <Nav.Link>Chat</Nav.Link>
             </LinkContainer>
-            <LinkContainer to="/signup">
-              <Nav.Link>SignUp</Nav.Link>
-            </LinkContainer>
-            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
-              </NavDropdown.Item>
-            </NavDropdown>
+            {!user && (
+              <>
+                <LinkContainer to="/signup">
+                  <Nav.Link>SignUp</Nav.Link>
+                </LinkContainer>
+              </>
+            )}
+            {user && (
+              <NavDropdown
+                title={
+                  <>
+                    <img src={user.picture} className="nav-profile-img"></img>
+                    {user.name}
+                  </>
+                }
+                id="basic-nav-dropdown"
+              >
+                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.2">
+                  Another action
+                </NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.3">
+                  Something
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item>
+                  <Button variant="danger" onClick={handleLogout}>
+                    Logout
+                  </Button>
+                </NavDropdown.Item>
+              </NavDropdown>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>
