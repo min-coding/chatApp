@@ -4,6 +4,14 @@
   height: 35px;
 }
 
+.nav-profile-img {
+  width: 30px;
+  height: 30px;
+  margin-right: 15px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
 /* Home */
 
 /* Hero Section */
@@ -50,11 +58,19 @@
   border-radius: 50%;
 }
 
-.add-picture-icon{
+.add-picture-icon {
   position: absolute;
   bottom: 0;
   right: 5px;
   color: green;
   cursor: pointer;
   z-index: 99;
+}
+
+/* Chat */
+.message-output {
+  height: 80vh;
+  border: 1px solid lightgray;
+  overflow-y: scroll;
+  margin-bottom: 10px;
 }

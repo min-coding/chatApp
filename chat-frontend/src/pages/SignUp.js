@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 import { Row, Col, Form, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import avatar from '../assets/avatar-default.png';
+import { useSignUpMutation } from '../services/appApi';
 
 export default function SignUp() {
   // img upload state
   const [image, setImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [uploadingImage, setUploadingImage] = useState(false);
+
+  //hooks
+  const [signupUser, { isLoading, error }] = useSignUpMutation();
+  const navigate = useNavigate();
 
   // profile info state
   const [name, setName] = useState('');
@@ -27,10 +32,13 @@ export default function SignUp() {
 
   const uploadImage = async () => {
     const data = new FormData();
+    //.append('key','value') to form data
     data.append('file', image);
     data.append('upload_preset', 'my-uploads');
+    console.log(data);
     try {
       setUploadingImage(true);
+      //sending post request to upload img to cloudinary
       let res = await fetch(
         'https://api.cloudinary.com/v1_1/ddln8havk/image/upload',
         {
@@ -39,8 +47,6 @@ export default function SignUp() {
         }
       );
       const urlData = await res.json();
-      console.log(urlData);
-
       setUploadingImage(false);
       return urlData.url;
     } catch (error) {
@@ -54,6 +60,12 @@ export default function SignUp() {
     if (!image) return alert('Please upload your profile picture');
     const url = await uploadImage(image);
     console.log(url);
+    signupUser({ name, email, password, picture: url }).then((data) => {
+      if (data) {
+        console.log(data);
+        navigate('/chat');
+      }
+    });
   };
 
   return (
@@ -118,7 +130,7 @@ export default function SignUp() {
           </Form.Group>
 
           <Button variant="primary" type="submit">
-            Create account
+            {uploadingImage ? 'Loading...' : 'Sign Up'}
           </Button>
         </Form>
       </Col>
