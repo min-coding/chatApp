@@ -25,7 +25,7 @@ export default function MessageForm() {
             </Form.Group>
           </Col>
           <Col md={1}>
-            <Button type="submit" variant="primary" disable={!user}>
+            <Button type="submit" variant="primary" disabled={!user}>
               <i className="fas fa-paper-plane"></i>
             </Button>
           </Col>
