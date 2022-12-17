@@ -9,7 +9,6 @@ Because it's bad for the performance
 
 - You have to validate img first
 - Set image preview URL.createObjectURL(file)
--
 
 2. Why do we need to use middleware (.json() and .urlencoded)
 
