@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Row, Col, Form, Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useLoginMutation } from '../services/appApi';
+import { AppContext } from '../context/appContext';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -10,6 +11,7 @@ export default function Login() {
   //hooks
   const [loginUser, { isLoading, error }] = useLoginMutation();
   const navigate = useNavigate();
+  const { socket } = useContext(AppContext);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -17,6 +19,7 @@ export default function Login() {
     loginUser({ email, password }).then(({ data }) => {
       if (data) {
         //socket work
+        socket.emit('new-user');
         //navigate to the chat
         navigate('/chat');
       }

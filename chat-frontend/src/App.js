@@ -12,21 +12,21 @@ import { AppContext, socket } from './context/appContext';
 
 function App() {
   const user = useSelector((state) => state.user);
-
-  //context
   const [rooms, setRooms] = useState([]);
-  const [currentRooms, setCurrentRoom] = useState([]);
+  const [currentRooms, setCurrentRooms] = useState([]);
   const [members, setMembers] = useState([]);
   const [messages, setMessages] = useState([]);
-  const [privateMemberMsg, setPrivateMemberMsg] = useState({});
-  const [newMessages, setNewMessages] = useState({});
+  const [privateMemberMsg, setPrivateMemberMsg] = useState([]);
+  const [newMessages, setNewMessages] = useState([]);
 
   return (
     <AppContext.Provider
       value={{
         socket,
+        rooms,
+        setRooms,
         currentRooms,
-        setCurrentRoom,
+        setCurrentRooms,
         members,
         setMembers,
         messages,
@@ -35,8 +35,6 @@ function App() {
         setPrivateMemberMsg,
         newMessages,
         setNewMessages,
-        rooms,
-        setRooms,
       }}
     >
       <BrowserRouter>
