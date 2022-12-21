@@ -44,7 +44,7 @@ async function getLastMessagesFromRoom(room) {
  *
  * 20221102
  */
-async function sortRoomMessagesByDate(messages) {
+function sortRoomMessagesByDate(messages) {
   return messages.sort(function (a, b) {
     let date1 = a._id.split('/');
     let date2 = b._id.split('/');
@@ -58,6 +58,7 @@ async function sortRoomMessagesByDate(messages) {
 
 //socket connection
 io.on('connection', (socket) => {
+  // ****** NEW USER *****
   socket.on('new-user', async () => {
     const members = await User.find();
 
@@ -65,6 +66,7 @@ io.on('connection', (socket) => {
     io.emit('new-user', members);
   });
 
+  // ****** JOIN ROOM *****
   socket.on('join-room', async (room) => {
     socket.join(room);
     let roomMessages = await getLastMessagesFromRoom(room);
@@ -73,6 +75,23 @@ io.on('connection', (socket) => {
     // send to only specific user
     socket.emit('room-messages', roomMessages);
   });
+
+  // ****** GET MESSAGES TO ROOM *****
+  socket.on('message-room', async (room, content, sender, time, date) => {
+    const newMessage = await Message.create({
+      content,
+      from: sender,
+      time,
+      date,
+      to: room,
+    });
+    let roomMessages = await getLastMessagesFromRoom(room);
+    roomMessages = sortRoomMessagesByDate(roomMessages);
+    // sending message to room
+    io.to(room).emit('room-messages', roomMessages);
+    socket.broadcast.emit('notifications', room);
+  });
+
 });
 
 server.listen(PORT, () => {
