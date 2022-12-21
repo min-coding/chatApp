@@ -21,6 +21,20 @@ export default function Sidebar() {
     setNewMessages,
   } = useContext(AppContext);
 
+  const joinRoom = (room, isPublic = true) => {
+    if (!user) {
+      return alert('Please login');
+    }
+    socket.emit('join-room', room);
+    setCurrentRooms(room);
+
+    if (isPublic) {
+      setPrivateMemberMsg(null);
+    }
+
+    //dispatch for notifications
+  };
+
   useEffect(() => {
     if (user) {
       setCurrentRooms('general');
@@ -49,7 +63,17 @@ export default function Sidebar() {
       <h2> Available Room</h2>
       <ListGroup>
         {rooms.map((room, index) => {
-          return <ListGroup.Item key={index}>{room}</ListGroup.Item>;
+          return (
+            <ListGroup.Item
+              key={index}
+              onClick={() => joinRoom(room)}
+              style={{ display: 'flex', justifyContent: 'center' }}
+              active={room == currentRooms}
+            >
+              {room}
+              {/* {currentRooms !== room && <span></span>} */}
+            </ListGroup.Item>
+          );
         })}
       </ListGroup>
 
