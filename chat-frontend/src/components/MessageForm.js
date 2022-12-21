@@ -27,7 +27,8 @@ export default function MessageForm() {
 
   // watch for socket to emit a 'room-messages' event
   socket.off('room-messages').on('room-messages', (roomMessages) => {
-    /** console.log(roomMessages) */
+    console.log('roomMessages:', roomMessages);
+    console.log('messages:', messages);
     setMessages(roomMessages);
   });
 
@@ -48,6 +49,21 @@ export default function MessageForm() {
     <>
       <div className="message-output">
         {!user && <div className="alert alert-danger"> Please login </div>}
+        {user &&
+          messages.map(({ _id: date, messagesByDate }, index) => (
+            <div key={index}>
+              <p className="alert alert-info text-center message-date-indicator">
+                {date}
+              </p>
+              {messagesByDate.map(
+                ({ content, time, from: sender }, msgIndex) => (
+                  <div key={msgIndex}>
+                    <p>{content}</p>
+                  </div>
+                )
+              )}
+            </div>
+          ))}
       </div>
       <Form onSubmit={handleSubmit}>
         <Row>
@@ -58,7 +74,10 @@ export default function MessageForm() {
                 placeholder="Your message"
                 disabled={!user}
                 value={message}
-                onChange={(e) => setMessage(e.target.value)}
+                onChange={(e) => {
+                  setMessage(e.target.value);
+                  console.log(message);
+                }}
               ></Form.Control>
             </Form.Group>
           </Col>
