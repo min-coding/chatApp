@@ -74,3 +74,31 @@
   overflow-y: scroll;
   margin-bottom: 10px;
 }
+
+.member-status {
+  margin-bottom: 0;
+  position: relative;
+}
+
+.member-status-img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.sidebar-online-status {
+  color: green;
+}
+
+.sidebar-offline-status {
+  color: gray;
+}
+.sidebar-offline-status,
+.sidebar-online-status {
+  font-size: 11px;
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  left: 12px;
+}
