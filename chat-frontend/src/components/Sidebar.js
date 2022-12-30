@@ -36,10 +36,13 @@ export default function Sidebar() {
 
     //dispatch for notifications
     dispatch(resetNotifications(room));
-    socket.off('notifications').on('notifications', (room) => {
-      dispatch(addNotifications(room));
-    });
   };
+
+  socket.off('notifications').on('notifications', (room) => {
+    if (currentRooms != room) {
+      dispatch(addNotifications(room));
+    }
+  });
 
   useEffect(() => {
     if (user) {
