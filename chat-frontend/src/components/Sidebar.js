@@ -58,6 +58,19 @@ export default function Sidebar() {
       .then((data) => setRooms(data));
   }
 
+  function orderIds(id1, id2) {
+    if (id1 > id2) {
+      return id1 + '-' + id2;
+    }
+    return id2 + '-' + id1;
+  }
+
+  function handlePrivateMemberMsg(member) {
+    setPrivateMemberMsg(member);
+    const roomId = orderIds(user._id, member._id);
+    joinRoom(roomId, false);
+  }
+
   return (
     <>
       <h2> Available Room</h2>
@@ -71,16 +84,26 @@ export default function Sidebar() {
               active={room == currentRooms}
             >
               {room}
-              {/* {currentRooms !== room && <span></span>} */}
+              {currentRooms !== room && <span></span>}
             </ListGroup.Item>
           );
         })}
       </ListGroup>
 
       <h2>Members</h2>
-      {members.map((member) => (
-        <ListGroup.Item key={member.id}> {member.name}</ListGroup.Item>
-      ))}
+      <ListGroup>
+        {members.map((member) => (
+          <ListGroup.Item
+            key={member.id}
+            active={privateMemberMsg?._id == member?._id}
+            onClick={() => handlePrivateMemberMsg(member)}
+            disabled={member?._id == user?._id}
+          >
+            {' '}
+            {member.name}
+          </ListGroup.Item>
+        ))}
+      </ListGroup>
     </>
   );
 }

@@ -27,8 +27,8 @@ export default function MessageForm() {
 
   // watch for socket to emit a 'room-messages' event
   socket.off('room-messages').on('room-messages', (roomMessages) => {
-    console.log('roomMessages:', roomMessages);
-    console.log('messages:', messages);
+    // console.log('roomMessages:', roomMessages);
+    // console.log('messages:', messages);
     setMessages(roomMessages);
   });
 
@@ -55,7 +55,7 @@ export default function MessageForm() {
               <p className="alert alert-info text-center message-date-indicator">
                 {date}
               </p>
-              {messagesByDate.map(
+              {messagesByDate?.map(
                 ({ content, time, from: sender }, msgIndex) => (
                   <div key={msgIndex}>
                     <p>{content}</p>
