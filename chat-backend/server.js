@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 const userRoutes = require('./routes/userRoutes');
+const path = require('path');
+
 
 const rooms = ['finance', 'tech', 'general'];
 const cors = require('cors');
@@ -22,6 +24,10 @@ const io = require('socket.io')(server, {
     method: ['GET', 'POST'],
   },
 });
+
+const dirname = path.resolve()
+app.use(express.static(path.join(dirname, '/chat-frontend/build')))
+app.get('*',(req,res)=>res.sendFile(path.join(dirname,'/chat-frontend/build/index.html')))
 
 app.get('/rooms', (req, res) => {
   res.json(rooms);
