@@ -3,7 +3,6 @@ const app = express();
 const userRoutes = require('./routes/userRoutes');
 const path = require('path');
 
-
 const rooms = ['finance', 'tech', 'general'];
 const cors = require('cors');
 const User = require('./models/User');
@@ -20,14 +19,16 @@ const server = require('http').createServer(app);
 const PORT = 5001;
 const io = require('socket.io')(server, {
   cors: {
-    origin: 'http://localhost:3000',
+    origin: 'https://chatapp-gjpw.onrender.com/',
     method: ['GET', 'POST'],
   },
 });
 
-const dirname = path.resolve()
-app.use(express.static(path.join(dirname, '/chat-frontend/build')))
-app.get('*',(req,res)=>res.sendFile(path.join(dirname,'/chat-frontend/build/index.html')))
+const dirname = path.resolve();
+app.use(express.static(path.join(dirname, '/chat-frontend/build')));
+app.get('*', (req, res) =>
+  res.sendFile(path.join(dirname, '/chat-frontend/build/index.html'))
+);
 
 app.get('/rooms', (req, res) => {
   res.json(rooms);
