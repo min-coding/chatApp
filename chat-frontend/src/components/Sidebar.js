@@ -1,3 +1,4 @@
+import { current } from '@reduxjs/toolkit';
 import React, { useContext, useEffect } from 'react';
 import { ListGroup, ListGroupItem, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
@@ -27,7 +28,7 @@ export default function Sidebar() {
     if (!user) {
       return alert('Please login');
     }
-    socket.emit('join-room', room);
+    socket.emit('join-room', room, currentRooms);
     setCurrentRooms(room);
 
     if (isPublic) {

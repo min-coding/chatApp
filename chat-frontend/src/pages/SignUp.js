@@ -130,7 +130,7 @@ export default function SignUp() {
           </Form.Group>
 
           <Button variant="primary" type="submit">
-            {uploadingImage ? 'Loading...' : 'Sign Up'}
+            {uploadingImage || isLoading? 'Loading...' : 'Sign Up'}
           </Button>
         </Form>
       </Col>

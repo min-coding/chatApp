@@ -119,7 +119,6 @@
   min-width: 200px;
   max-width: 90%;
   text-align: left;
-  /* font-size: 1em; */
   display: inline-block;
   border-radius: 10px;
   background-color: lightseagreen;
@@ -137,10 +136,27 @@
   font-size: 0.85em;
   font-weight: 300;
   margin-top: 10px;
-  /* text-align: right; */
 }
 
 .message-date {
   width: 100px;
   margin: 0 auto;
+}
+
+.message-date-indicator {
+}
+
+.conversation-info {
+  padding: 0;
+  margin: 0 auto;
+  text-align: center;
+  height: 100px;
+}
+
+.conversation-profile-picture {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  margin: 10px auto 30px 10px;
+  border-radius: 50%;
 }

@@ -58,6 +58,15 @@ export default function MessageForm() {
     <>
       <div className="message-output">
         {!user && <div className="alert alert-danger"> Please login </div>}
+        {user && !privateMemberMsg?._id && (
+          <div className="alert alert-info">You are in {currentRooms}</div>
+        )}
+        {user && privateMemberMsg?._id && (
+          <div className='alert alert-info conversation-info'>
+            You are chatting with {privateMemberMsg.name}
+            <img src={privateMemberMsg.image} alt='profile img' className='conversation-profile-picture'></img>
+          </div>
+        )}
         {user &&
           messages.map(({ _id: date, messagesByDate }, index) => (
             <div key={index}>

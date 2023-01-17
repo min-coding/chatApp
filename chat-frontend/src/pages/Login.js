@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Row, Col, Form, Button } from 'react-bootstrap';
+import { Row, Col, Form, Button, Spinner } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useLoginMutation } from '../services/appApi';
 import { AppContext } from '../context/appContext';
@@ -36,6 +36,7 @@ export default function Login() {
       >
         <Form onSubmit={handleLogin}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
+            {error && <p className="alert alert-danger">{error.data}</p>}
             <Form.Label>Email address</Form.Label>
             <Form.Control
               type="email"
@@ -59,7 +60,7 @@ export default function Login() {
           </Form.Group>
 
           <Button variant="primary" type="submit">
-            Login
+            {isLoading?<Spinner animation='grow'></Spinner>:"Login"}
           </Button>
           <div className="d-flex">
             {/* <div className="py-4"> */}

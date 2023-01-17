@@ -67,9 +67,10 @@ io.on('connection', (socket) => {
   });
 
   // ****** JOIN ROOM *****
-  socket.on('join-room', async (room) => {
-    socket.join(room);
-    let roomMessages = await getLastMessagesFromRoom(room);
+  socket.on('join-room', async (newRoom, previousRooms) => {
+    socket.leave(previousRooms);
+    socket.join(newRoom);
+    let roomMessages = await getLastMessagesFromRoom(newRoom);
     roomMessages = sortRoomMessagesByDate(roomMessages);
 
     // send to only specific user
@@ -91,7 +92,7 @@ io.on('connection', (socket) => {
     io.to(room).emit('room-messages', roomMessages);
     socket.broadcast.emit('notifications', room);
   });
-  
+
   //logout
   app.delete('/logout', async (req, res) => {
     try {

@@ -36,7 +36,7 @@ const UserSchema = new mongoose.Schema(
     but by setting {minimize:false} , it will store empty object, and result in {} instead
     of 'undefined
   */
-   { minimize: false }
+  { minimize: false }
 );
 
 //Hash the password before we save the user
@@ -55,27 +55,26 @@ UserSchema.pre('save', function (next) {
       next();
     });
   });
-})
+});
 
 //Sending back user, without sending back the password
 UserSchema.methods.toJSON = function () {
-  const user = this
-  const userObject = user.toObject()
-  delete userObject.password
-  return userObject
-}
-
+  const user = this;
+  const userObject = user.toObject();
+  delete userObject.password;
+  return userObject;
+};
 
 // Methods to check user email+password (credentials)
 UserSchema.statics.findByCredentials = async function (email, password) {
-  const user = await User.findOne({ email })
-  if(!user) throw new Error('invalid email or password')
-  
-  const isMatch = await bcrypt.compare(password, user.password)
-  if(!isMatch) throw new Error('invalid email or password');
-  return user
-}
+  const user = await User.findOne({ email });
+  if (!user) throw new Error('invalid email or password');
 
-const User = mongoose.model('User', UserSchema)
+  const isMatch = await bcrypt.compare(password, user.password);
+  if (!isMatch) throw new Error('invalid email or password');
+  return user;
+};
 
-module.exports = User
+const User = mongoose.model('User', UserSchema);
+
+module.exports = User;
