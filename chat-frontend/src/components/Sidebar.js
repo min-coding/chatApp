@@ -63,11 +63,11 @@ export default function Sidebar() {
   }
 
   function getRooms() {
-    fetch('http://localhost:5001/rooms')
+    fetch(`${process.env.REACT_APP_DEV_BASE_URL}/rooms`)
       .then((res) => res.json())
       .then((data) => setRooms(data));
   }
-
+  
   function orderIds(id1, id2) {
     if (id1 > id2) {
       return id1 + '-' + id2;
