@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Button, Form, Row, Col } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { AppContext } from '../context/appContext';
+import { Link } from 'react-router-dom';
 
 export default function MessageForm() {
   const [message, setMessage] = useState('');
@@ -57,14 +58,24 @@ export default function MessageForm() {
   return (
     <>
       <div className="message-output">
-        {!user && <div className="alert alert-danger"> Please login </div>}
+        {!user && (
+          <div className="alert alert-danger">
+            {' '}
+            Please login
+            <Link to="/login"> here</Link>{' '}
+          </div>
+        )}
         {user && !privateMemberMsg?._id && (
           <div className="alert alert-info">You are in {currentRooms}</div>
         )}
         {user && privateMemberMsg?._id && (
-          <div className='alert alert-info conversation-info'>
+          <div className="alert alert-info conversation-info">
             You are chatting with {privateMemberMsg.name}
-            <img src={privateMemberMsg.image} alt='profile img' className='conversation-profile-picture'></img>
+            <img
+              src={privateMemberMsg.picture}
+              alt="profile img"
+              className="conversation-profile-picture"
+            ></img>
           </div>
         )}
         {user &&

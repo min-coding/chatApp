@@ -32,7 +32,7 @@ export default function Login() {
 
       <Col
         md={7}
-        className="d-flex flex-direction-column align-items-center justify-content-center"
+        className="d-flex flex-direction-column align-items-center justify-content-center pt-5"
       >
         <Form onSubmit={handleLogin}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -60,12 +60,13 @@ export default function Login() {
           </Form.Group>
 
           <Button variant="primary" type="submit">
-            {isLoading?<Spinner animation='grow'></Spinner>:"Login"}
+            {isLoading ? <Spinner animation="grow"></Spinner> : 'Login'}
           </Button>
-          <div className="d-flex">
+          <div className="d-flex mt-5">
             {/* <div className="py-4"> */}
-            <p className="text-center">Don't have an account?</p>
-            <Link to="/signup">Sign Up</Link>
+            <p className="text-center">
+              Don't have an account? <Link to="/signup"> Sign Up</Link>
+            </p>
           </div>
         </Form>
       </Col>

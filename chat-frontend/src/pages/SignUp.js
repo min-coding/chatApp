@@ -74,10 +74,10 @@ export default function SignUp() {
 
       <Col
         md={7}
-        className="d-flex flex-direction-column align-items-center justify-content-center"
+        className="d-flex flex-direction-column align-items-center justify-content-center mt-5"
       >
         <Form onSubmit={handleSignup}>
-          <h1> Create account </h1>
+          <h1 className="text-center"> Create account </h1>
           <div className="signup-profile-pic-container">
             <img
               src={imagePreview || avatar}
@@ -130,7 +130,7 @@ export default function SignUp() {
           </Form.Group>
 
           <Button variant="primary" type="submit">
-            {uploadingImage || isLoading? 'Loading...' : 'Sign Up'}
+            {uploadingImage || isLoading ? 'Loading...' : 'Sign Up'}
           </Button>
         </Form>
       </Col>

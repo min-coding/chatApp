@@ -8,14 +8,14 @@ export default function Home() {
       <Row>
         <Col
           md={6}
-          className="d-flex align-items-center justify-content-center"
+          className="d-flex align-items-center justify-content-center p-5"
         >
           <div>
-            <h1> Some title</h1>
-            <p> slogan</p>
+            <h1> Welcome to Min's chat application</h1>
+            <p> Check it out!</p>
             <LinkContainer to="/chat">
-              <Button variant="success">
-                Get started
+              <Button variant="success mt-3">
+                Start chatting
                 <i className="fas fa-comments home-message-icon"></i>
               </Button>
             </LinkContainer>

@@ -104,8 +104,8 @@ export default function Sidebar() {
         })}
       </ListGroup>
 
-      <h2>Members</h2>
-      <ListGroup>
+      <h2 className='mt-5'>Members</h2>
+      <ListGroup className='mb-5'>
         {members.map((member) => (
           <ListGroup.Item
             key={member._id}
