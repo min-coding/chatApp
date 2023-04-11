@@ -18,5 +18,3 @@ You NEED express.json() and express.urlencoded() for POST and PUT requests, 
    CORS is a mechanism that allows the website on one URL to request data for a different URL.
 
 Normally the browser implements the “same origin policy” which allows us to request data from its own URL, but block anything from external URL, unless certain conditions are met.
-
-4. What is TCP/IP connection
